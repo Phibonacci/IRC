@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 16:19:09 2014 Jean Fauquenot
-** Last update Thu Apr 17 18:15:46 2014 Jean Fauquenot
+** Last update Thu Apr 17 19:58:59 2014 Jean Fauquenot
 */
 
 #ifndef ERROR_H_
@@ -31,6 +31,7 @@
 # define E_WRFILE	"Could not write in the file"
 # define E_SOCKET	"Could not open the socket"
 # define E_BIND		"Could not bind the name to the socket"
+# define E_LISTEN	"Could not listen to the socket"
 
 t_state		error(char *, ...);
 
