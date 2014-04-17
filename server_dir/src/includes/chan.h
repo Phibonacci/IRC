@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Wed Apr 16 17:04:57 2014 Jean Fauquenot
-** Last update Thu Apr 17 15:30:01 2014 Jean Fauquenot
+** Last update Thu Apr 17 21:37:43 2014 Jean Fauquenot
 */
 
 #ifndef CHAN_H_
@@ -35,12 +35,12 @@
 */
 typedef enum		e_flags_chan
   {
-    FLAG_PL = 0b000001,
-    FLAG_SL = 0b000010,
-    FLAG_IL = 0b000100,
-    FLAG_TL = 0b001000,
-    FLAG_NL = 0b010000,
-    FLAG_ML = 0b100000
+    FLAG_CHAN_PL = 0b000001,
+    FLAG_CHAN_SL = 0b000010,
+    FLAG_CHAN_IL = 0b000100,
+    FLAG_CHAN_TL = 0b001000,
+    FLAG_CHAN_NL = 0b010000,
+    FLAG_CHAN_ML = 0b100000
   }			t_flags_chan;
 
 # define FLAG_CHAN_PL_STR	"p"
@@ -64,6 +64,8 @@ typedef enum		e_flags_chan_user
 
 # define FLAG_CHAN_OL_STR	"o"
 # define FLAG_CHAN_VL_STR	"v"
+
+typedef struct	s_user	t_user;
 
 typedef struct		s_chan_user
 {

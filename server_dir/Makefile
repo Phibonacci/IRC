@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Thu Apr 17 16:14:30 2014 Jean Fauquenot
-## Last update Thu Apr 17 20:04:35 2014 Jean Fauquenot
+## Last update Thu Apr 17 21:13:44 2014 Jean Fauquenot
 ##
 
 DEBUG		=	0
@@ -23,7 +23,9 @@ VPATH		+=	:src/utils
 SRC		+=	server.c \
 			init_server.c \
 			init_server_aux.c \
-			destroy_server.c
+			destroy_server.c \
+			select_loop.c \
+			set_select.c
 VPATH		+=	:src/core
 
 OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
