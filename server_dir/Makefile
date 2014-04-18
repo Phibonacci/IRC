@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Thu Apr 17 16:14:30 2014 Jean Fauquenot
-## Last update Thu Apr 17 21:13:44 2014 Jean Fauquenot
+## Last update Fri Apr 18 18:04:07 2014 Jean Fauquenot
 ##
 
 DEBUG		=	0
@@ -27,6 +27,10 @@ SRC		+=	server.c \
 			select_loop.c \
 			set_select.c
 VPATH		+=	:src/core
+
+SRC		+=	handle_fds.c \
+			server_fd.c
+VPATH		+=	:src/core/fds
 
 OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 

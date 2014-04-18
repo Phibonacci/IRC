@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 20:26:47 2014 Jean Fauquenot
-** Last update Thu Apr 17 21:39:37 2014 Jean Fauquenot
+** Last update Fri Apr 18 12:52:37 2014 Jean Fauquenot
 */
 
 #include	"core.h"
@@ -38,6 +38,8 @@ t_state		select_loop(t_server *server)
 				NULL,
 				NULL)) != -1)
     {
+      if (handle_fds(&settings, server, clist) == FAILURE)
+	return (FAILURE);
       set_select(&settings, server, clist);
     }
   if (ret == -1)
