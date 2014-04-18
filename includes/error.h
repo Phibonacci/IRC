@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 16:19:09 2014 Jean Fauquenot
-** Last update Thu Apr 17 19:58:59 2014 Jean Fauquenot
+** Last update Fri Apr 18 20:15:21 2014 Gabriel Poulet de Grimouard
 */
 
 #ifndef ERROR_H_
@@ -33,6 +33,6 @@
 # define E_BIND		"Could not bind the name to the socket"
 # define E_LISTEN	"Could not listen to the socket"
 
-t_state		error(char *, ...);
+t_state		merror(char *, ...);
 
 #endif /* !ERROR_H_ */
