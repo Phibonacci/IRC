@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Tue Apr 15 15:57:34 2014 Jean Fauquenot
-## Last update Wed Apr 16 15:20:54 2014 Jean Fauquenot
+## Last update Fri Apr 18 20:15:58 2014 Gabriel Poulet de Grimouard
 ##
 
 DEBUG		=	0
@@ -15,6 +15,9 @@ NAME		=	client
 BUILD		=	build
 
 SRC		=	main.c \
+			parser.c \
+			user.c \
+			user_command.c \
 			error.c
 
 VPATH		=	src
@@ -23,7 +26,7 @@ OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 
 CC		=	gcc
 
-CFLAGS		=	-W -Wall -I src/includes/
+CFLAGS		=	-W -Wall -I src/includes/ -I ../includes
 ifeq ($(DEBUG), 1)
  CFLAGS		+=	-ggdb3 -D DEBUG
 endif

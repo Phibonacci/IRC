@@ -4,8 +4,8 @@
 ** Made by Jean Fauquenot
 ** Login   <fauque_j@epitech.net>
 **
-** Started on  Thu Apr 17 13:27:14 2014 Jean Fauquenot
-** Last update Fri Apr 18 16:39:59 2014 Jean Fauquenot
+** Started on  Sat Apr 19 19:55:26 2014 Jean Fauquenot
+** Last update Sat Apr 19 19:55:43 2014 Jean Fauquenot
 */
 
 #ifndef USUAL_H_
@@ -26,8 +26,6 @@
 
 /*
 ** Return state of functions
-**
-**
 */
 typedef enum		e_state
   {

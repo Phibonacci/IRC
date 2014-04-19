@@ -4,8 +4,8 @@
 ** Made by Jean Fauquenot
 ** Login   <fauque_j@epitech.net>
 **
-** Started on  Thu Apr 17 14:19:11 2014 Jean Fauquenot
-** Last update Fri Apr 18 20:07:46 2014 Jean Fauquenot
+** Started on  Sat Apr 19 19:55:04 2014 Jean Fauquenot
+** Last update Sat Apr 19 19:55:05 2014 Jean Fauquenot
 */
 
 #ifndef USER_H_

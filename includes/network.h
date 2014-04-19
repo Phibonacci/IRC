@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 16:12:01 2014 Jean Fauquenot
-** Last update Thu Apr 17 16:56:56 2014 Jean Fauquenot
+** Last update Fri Apr 18 14:33:48 2014 Gabriel Poulet de Grimouard
 */
 
 #ifndef NETWORK_H_
