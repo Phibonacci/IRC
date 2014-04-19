@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 14:19:11 2014 Jean Fauquenot
-** Last update Thu Apr 17 21:43:12 2014 Jean Fauquenot
+** Last update Fri Apr 18 20:07:46 2014 Jean Fauquenot
 */
 
 #ifndef USER_H_
@@ -28,6 +28,7 @@
 */
 typedef enum		e_flags_user
   {
+    FLAG_USER_NONE = 0b0000,
     FLAG_USER_IL = 0b0001,
     FLAG_USER_SL = 0b0010,
     FLAG_USER_WL = 0b0100,
