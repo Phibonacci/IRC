@@ -44,7 +44,7 @@ t_state		select_loop(t_server *server)
     }
   if (ret == -1)
     {
-      return (error("%s: %s", E_SELECT, strerror(errno)));
+      return (merror("%s: %s", E_SELECT, strerror(errno)));
     }
   return (SUCCESS);
 }
