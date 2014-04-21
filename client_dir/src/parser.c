@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 17 18:48:21 2014 Gabriel Poulet de Grimouard
-** Last update Mon Apr 21 14:54:13 2014 Gabriel Poulet de Grimouard
+** Last update Mon Apr 21 16:27:44 2014 Gabriel Poulet de Grimouard
 */
 
 #define  _XOPEN_SOURCE 700
@@ -76,7 +76,7 @@ int		parse_cmd(t_client *client)
 	return (replace_cmd_in_buf(client, g_tab_cmd[i].cmd, g_tab_cmd[i].trad));
     }
   if (client->msg[0] != '/')
-    return (replace_cmd_in_buf(client, "", "PRIVMSG"));
+    return (replace_cmd_in_buf(client, "", "PRIVMSG "));
   merror("invalid command");
   return (-1);
 }

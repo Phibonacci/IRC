@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Sat Apr 19 19:55:04 2014 Jean Fauquenot
-** Last update Sat Apr 19 19:55:05 2014 Jean Fauquenot
+** Last update Mon Apr 21 18:40:36 2014 Gabriel Poulet de Grimouard
 */
 
 #ifndef USER_H_
@@ -40,7 +40,7 @@ typedef enum		e_flags_user
 # define FLAG_USER_WL_STR	"w"
 # define FLAG_USER_OL_STR	"o"
 
-typedef struct		s_user
+typedef struct		s_muser
 {
   char			nick[USER_NICK_LEN];
   char			realname[USER_REALNAME_LEN];
@@ -48,11 +48,11 @@ typedef struct		s_user
   t_chan		*chans;
   t_flags_user		mode;
   t_network		network;
-}			t_user;
+}			t_muser;
 
 typedef struct		s_user_l
 {
-  t_user		data;
+  t_muser		data;
   struct s_user_l	*next;
 }			t_user_l;
 

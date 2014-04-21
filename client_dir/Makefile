@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Tue Apr 15 15:57:34 2014 Jean Fauquenot
-## Last update Mon Apr 21 14:49:18 2014 Gabriel Poulet de Grimouard
+## Last update Mon Apr 21 18:38:00 2014 Gabriel Poulet de Grimouard
 ##
 
 DEBUG		=	0
@@ -25,9 +25,9 @@ VPATH		=	src
 
 OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 
-CC		=	gcc
+CC		=	clang
 
-CFLAGS		=	-W -Wall -I src/includes/ -I ../includes
+CFLAGS		=	-W -Wall -I src/includes/ -I ../includes --std=c90
 ifeq ($(DEBUG), 1)
  CFLAGS		+=	-ggdb3 -D DEBUG
 endif
