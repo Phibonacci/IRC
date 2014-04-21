@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ##
 ## Started on  Thu Apr 17 16:14:30 2014 Jean Fauquenot
-## Last update Fri Apr 18 13:58:06 2014 Gabriel Poulet de Grimouard
+## Last update Mon Apr 21 15:02:43 2014 Gabriel Poulet de Grimouard
 ##
 
 DEBUG		=	0
@@ -13,6 +13,8 @@ DEBUG		=	0
 NAME		=	server
 
 BUILD		=	build
+
+INCLUDES	=	-I./../includes -I src/includes/
 
 SRC		=	main.c
 VPATH		=	src
@@ -28,11 +30,17 @@ SRC		+=	server.c \
 			set_select.c
 VPATH		+=	:src/core
 
+SRC		+=	handle_fds.c \
+			server_fd.c \
+			add_client.c
+VPATH		+=	:src/core/fds
+
 OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 
 CC		=	gcc
 
-CFLAGS		=	-W -Wall -I src/includes/ -I ../includes/
+CFLAGS		=	-W -Wall -Wextra
+CFLAGS		+=	$(INCLUDES)
 ifeq ($(DEBUG), 1)
  CFLAGS		+=	-ggdb3 -D DEBUG
 endif

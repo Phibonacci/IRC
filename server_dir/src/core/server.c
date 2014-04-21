@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 15:45:37 2014 Jean Fauquenot
-** Last update Thu Apr 17 21:13:02 2014 Jean Fauquenot
+** Last update Fri Apr 18 12:21:15 2014 Jean Fauquenot
 */
 
 #include	"core.h"
@@ -24,7 +24,10 @@ t_state		server(int UNUSED(an), char **UNUSED(av))
   if (init_server(&server) == FAILURE)
     return (FAILURE);
   if (select_loop(&server) == FAILURE)
-    return (FAILURE);
+    {
+      destroy_server(&server);
+      return (FAILURE);
+    }
   destroy_server(&server);
   return (SUCCESS);
 }

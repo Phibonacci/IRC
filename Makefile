@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Mon Apr  7 21:16:23 2014 Jean Fauquenot
-## Last update Thu Apr 17 18:41:37 2014 Jean Fauquenot
+## Last update Thu Apr 17 19:19:11 2014 Jean Fauquenot
 ##
 
 CLIENT_DIR	=	client_dir
@@ -31,6 +31,7 @@ client		:
 server		:
 		$(MAKE_SERVER)
 		cp $(SERVER_BIN) .
+		cp $(SERVER_BIN) serveur
 
 clean		:
 		$(MAKE_CLIENT) clean

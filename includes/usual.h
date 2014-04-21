@@ -4,8 +4,8 @@
 ** Made by Jean Fauquenot
 ** Login   <fauque_j@epitech.net>
 **
-** Started on  Thu Apr 17 13:27:14 2014 Jean Fauquenot
-** Last update Fri Apr 18 14:54:14 2014 Gabriel Poulet de Grimouard
+** Started on  Sat Apr 19 19:55:26 2014 Jean Fauquenot
+** Last update Sat Apr 19 19:55:43 2014 Jean Fauquenot
 */
 
 #ifndef USUAL_H_
@@ -24,10 +24,14 @@
 #  define UNUSED(x)		x
 # endif
 
+/*
+** Return state of functions
+*/
 typedef enum		e_state
   {
-    FAILURE = EXIT_FAILURE,
-    SUCCESS = EXIT_SUCCESS
+    SUCCESS = 0,
+    FAILURE_L1 = 1,
+    FAILURE = 2
   }			t_state;
 
 typedef enum		e_bool
