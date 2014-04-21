@@ -26,7 +26,7 @@ static t_state	init_client_data_network(t_server *server, t_network *network)
 			    (struct sockaddr *)&network->addr,
 			    &network->slen)) == -1)
     {
-      error("%s: %s", E_ACCEPT, strerror(errno));
+      merror("%s: %s", E_ACCEPT, strerror(errno));
       return (FAILURE_L1);
     }
   network->ip = inet_ntoa(network->addr.sin_addr);

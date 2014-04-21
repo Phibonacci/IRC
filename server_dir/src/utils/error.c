@@ -13,7 +13,7 @@
 #include	<stdarg.h>
 #include	<stdio.h>
 
-t_state		error(char *format, ...)
+t_state		merror(char *format, ...)
 {
   va_list	ap;
 

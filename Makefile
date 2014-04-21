@@ -41,6 +41,7 @@ fclean		:	clean
 		$(MAKE_CLIENT) fclean
 		$(MAKE_SERVER) fclean
 		$(RM) client
+		$(RM) server
 		$(RM) serveur
 
 re		:	fclean all

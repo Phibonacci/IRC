@@ -21,9 +21,9 @@ t_state		bind_server(t_server *server)
 	   (const struct sockaddr *)&server->network.addr,
            sizeof(server->network.addr)) == -1)
     {
-      error("%s: %s", E_BIND, strerror(errno));
+      merror("%s: %s", E_BIND, strerror(errno));
       if (close(server->network.fd) == -1)
-	error("%s: %s", E_CLOSE, strerror(errno));
+	merror("%s: %s", E_CLOSE, strerror(errno));
       return (FAILURE);
     }
   return (SUCCESS);
@@ -33,7 +33,7 @@ t_state		listen_server(t_server *server)
 {
   if (listen(server->network.fd, 32) == -1)
     {
-      return (error("%s: %s", E_LISTEN, strerror(errno)));
+      return (merror("%s: %s", E_LISTEN, strerror(errno)));
     }
   return (SUCCESS);
 }
@@ -43,7 +43,7 @@ t_state		open_socket(t_server *server)
   if ((server->network.fd = socket(AF_INET, SOCK_STREAM,
 				   server->protocol->p_proto)) == -1)
     {
-      return (error("%s: %s", E_SOCKET, strerror(errno)));
+      return (merror("%s: %s", E_SOCKET, strerror(errno)));
     }
   return (SUCCESS);
 }
@@ -52,7 +52,7 @@ t_state		init_protocol(t_server *server)
 {
   if ((server->protocol = getprotobyname("TCP")) == 0)
     {
-      return (error("%s", E_PROTO));
+      return (merror("%s", E_PROTO));
     }
   return (SUCCESS);
 }

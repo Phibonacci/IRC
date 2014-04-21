@@ -23,5 +23,5 @@
 void		destroy_server(t_server *server)
 {
   if (close(server->network.fd) == -1)
-    error("%s: %s", E_CLOSE, strerror(errno));
+    merror("%s: %s", E_CLOSE, strerror(errno));
 }

@@ -65,11 +65,9 @@ typedef enum		e_flags_chan_user
 # define FLAG_CHAN_OL_STR	"o"
 # define FLAG_CHAN_VL_STR	"v"
 
-typedef struct	s_user	t_user;
-
 typedef struct		s_chan_user
 {
-  t_user		*info;
+  struct s_user		*info;
   t_flags_chan_user	mode;
   struct s_chan_user	*next;
 }			t_chan_user;
