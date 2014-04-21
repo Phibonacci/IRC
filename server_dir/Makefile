@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Thu Apr 17 16:14:30 2014 Jean Fauquenot
-## Last update Sat Apr 19 19:32:43 2014 Jean Fauquenot
+## Last update Mon Apr 21 19:04:06 2014 Jean Fauquenot
 ##
 
 DEBUG		=	0
@@ -32,7 +32,10 @@ VPATH		+=	:src/core
 
 SRC		+=	handle_fds.c \
 			server_fd.c \
-			add_client.c
+			add_client.c \
+			remove_client.c \
+			handle_fds_clients.c \
+			handle_fds_clients_read.c
 VPATH		+=	:src/core/fds
 
 OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
@@ -40,6 +43,7 @@ OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 CC		=	gcc
 
 CFLAGS		=	-W -Wall -Wextra
+CFLAGS		+=	-Werror
 CFLAGS		+=	$(INCLUDES)
 ifeq ($(DEBUG), 1)
  CFLAGS		+=	-ggdb3 -D DEBUG

@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 16:22:56 2014 Jean Fauquenot
-** Last update Fri Apr 18 18:29:08 2014 Jean Fauquenot
+** Last update Mon Apr 21 18:58:22 2014 Jean Fauquenot
 */
 
 #ifndef CORE_H_
@@ -33,5 +33,10 @@ t_state		handle_fds(t_select *, t_server *, t_user_l **);
 t_state		server_fd(t_select *, t_server *, t_user_l **);
 
 t_state		add_client(t_server *, t_user_l **);
+t_state		remove_client(t_user_l **, t_user_l *);
+
+t_state		handle_fds_clients(t_select *, t_server *, t_user_l **);
+t_state		handle_fds_clients_read(t_select *, t_server *, t_user_l **);
+t_state		handle_fds_clients_write(t_select *, t_server *, t_user_l **);
 
 #endif /* !CORE_H_ */
