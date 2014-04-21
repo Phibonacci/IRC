@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:45:58 2014 Gabriel Poulet de Grimouard
-** Last update Fri Apr 18 19:42:32 2014 Gabriel Poulet de Grimouard
+** Last update Mon Apr 21 15:00:28 2014 Gabriel Poulet de Grimouard
 */
 
 #ifndef CLIENT_H_
@@ -18,19 +18,37 @@ struct s_user;
 typedef struct	s_client
 {
   char		msg[512 + 1];
+  char		*cmd;
   int		len_msg;
   t_bool	quit : 1;
 }		t_client;
 
 typedef struct	s_cmd
 {
-  char		shr_cmd[3];
   char		cmd[50];
-  char		trad[10];
+  char		trad[50];
+  char		shr_cmd[4];
 }		t_cmd;
+
+typedef struct	s_fnct
+{
+  char		*cmd;
+  int		(*fnct)();
+}		t_fnct;
 
 void		client_init(t_client *client);
 struct s_user	*user_create(void);
 int		parse_cmd(t_client *client);
+void		user_cmd(struct s_user *user);
+int		user_join_cmd(t_client *, struct s_user *);
+t_state		user_serv_cmd(t_client *, struct s_user *);
+int		user_nick_cmd(t_client *, struct s_user *);
+int		user_list_cmd(t_client *, struct s_user *);
+int		user_part_cmd(t_client *, struct s_user *);
+int		user_user_cmd(t_client *, struct s_user *);
+int		user_privmsg_cmd(t_client *, struct s_user *);
+int		user_send_cmd(t_client *, struct s_user *);
+int		user_accept_cmd(t_client *, struct s_user *);
+int		user_msg_cmd(t_client *, struct s_user *);
 
 #endif /* !CLIENT_H_ */

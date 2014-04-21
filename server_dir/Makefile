@@ -1,11 +1,11 @@
 ##
 ## Makefile for  in ./
-## 
+##
 ## Made by Jean Fauquenot
 ## Login   <fauque_j@epitech.net>
-## 
+##
 ## Started on  Thu Apr 17 16:14:30 2014 Jean Fauquenot
-## Last update Thu Apr 17 21:13:44 2014 Jean Fauquenot
+## Last update Fri Apr 18 13:58:06 2014 Gabriel Poulet de Grimouard
 ##
 
 DEBUG		=	0
@@ -32,7 +32,7 @@ OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 
 CC		=	gcc
 
-CFLAGS		=	-W -Wall -I src/includes/
+CFLAGS		=	-W -Wall -I src/includes/ -I ../includes/
 ifeq ($(DEBUG), 1)
  CFLAGS		+=	-ggdb3 -D DEBUG
 endif
