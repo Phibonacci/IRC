@@ -12,7 +12,7 @@
 
 t_state		handle_fds_clients(t_select *settings,
 				   t_server *server,
-				   t_user_l **clist)
+				   t_duser_l **clist)
 {
   /* handle_clients_fds_write(settings, server, clist); */
   if (handle_fds_clients_read(settings, server, clist) == FAILURE)

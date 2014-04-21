@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 13:58:25 2014 Gabriel Poulet de Grimouard
-** Last update Fri Apr 18 15:18:32 2014 Gabriel Poulet de Grimouard
+** Last update Mon Apr 21 18:40:03 2014 Gabriel Poulet de Grimouard
 */
 
 #include "user.h"
@@ -13,7 +13,7 @@
 
 int		main()
 {
-  t_user	*user;
+  t_muser	*user;
 
   user = user_create();
   user_cmd(user);

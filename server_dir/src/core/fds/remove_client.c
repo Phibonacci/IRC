@@ -25,7 +25,7 @@ static t_state	free_chans(t_chan *chans)
   return (SUCCESS);
 }
 
-static t_state	free_user_l(t_user_l *to_free)
+static t_state	free_duser_l(t_duser_l *to_free)
 {
   if (close(to_free->data.network.fd) == -1)
     return (merror("%s: %s", E_CLOSE, strerror(errno)));
@@ -38,9 +38,9 @@ static t_state	free_user_l(t_user_l *to_free)
 ** E_NOTINTLIST is not supposed to happen
 ** and is only there to help the programer.
 */
-t_state		remove_client(t_user_l **clist, t_user_l *to_free)
+t_state		remove_client(t_duser_l **clist, t_duser_l *to_free)
 {
-  t_user_l	*it;
+  t_duser_l	*it;
 
   it = *clist;
   while (it && it != to_free && it->next != to_free)
@@ -54,5 +54,5 @@ t_state		remove_client(t_user_l **clist, t_user_l *to_free)
     *clist = NULL;
   else if (it->next == to_free)
     it->next = it->next->next;
-  return (free_user_l(to_free));
+  return (free_duser_l(to_free));
 }

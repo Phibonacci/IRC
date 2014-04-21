@@ -21,6 +21,6 @@ typedef struct		s_select
   int			ndfs;
 }			t_select;
 
-void		set_select(t_select *, t_server *, t_user_l *);
+void		set_select(t_select *, t_server *, t_duser_l *);
 
 #endif /* !SELECT_AUX_H_ */

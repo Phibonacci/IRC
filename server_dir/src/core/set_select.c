@@ -14,7 +14,7 @@
 
 #include	<stddef.h>
 
-static int	get_ndfs(t_server *server, t_user_l *clist)
+static int	get_ndfs(t_server *server, t_duser_l *clist)
 {
   int		nfds;
 
@@ -28,7 +28,7 @@ static int	get_ndfs(t_server *server, t_user_l *clist)
   return (nfds);
 }
 
-void		set_select(t_select *settings, t_server *server, t_user_l *clist)
+void		set_select(t_select *settings, t_server *server, t_duser_l *clist)
 {
   settings->ndfs = get_ndfs(server, clist);
   FD_ZERO(&settings->readfds);

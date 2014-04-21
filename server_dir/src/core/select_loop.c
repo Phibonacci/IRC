@@ -27,7 +27,7 @@ t_state		select_loop(t_server *server)
   t_bool	quit;
   int		ret;
   t_select	settings;
-  t_user_l	*clist;
+  t_duser_l	*clist;
 
   clist = NULL;
   quit = FALSE;

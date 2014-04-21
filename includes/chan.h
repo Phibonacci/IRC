@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Wed Apr 16 17:04:57 2014 Jean Fauquenot
-** Last update Thu Apr 17 21:37:43 2014 Jean Fauquenot
+** Last update Mon Apr 21 19:50:12 2014 Jean Fauquenot
 */
 
 #ifndef CHAN_H_
@@ -67,7 +67,7 @@ typedef enum		e_flags_chan_user
 
 typedef struct		s_chan_user
 {
-  struct s_user		*info;
+  struct s_duser	*info;
   t_flags_chan_user	mode;
   struct s_chan_user	*next;
 }			t_chan_user;

@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Tue Apr 15 15:57:34 2014 Jean Fauquenot
-## Last update Fri Apr 18 20:15:58 2014 Gabriel Poulet de Grimouard
+## Last update Mon Apr 21 18:38:00 2014 Gabriel Poulet de Grimouard
 ##
 
 DEBUG		=	0
@@ -14,19 +14,20 @@ NAME		=	client
 
 BUILD		=	build
 
-SRC		=	main.c \
-			parser.c \
-			user.c \
-			user_command.c \
-			error.c
+SRC		=	main.c 		\
+			parser.c 	\
+			user.c 		\
+			user_command.c 	\
+			error.c		\
+			user_cmd.c
 
 VPATH		=	src
 
 OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 
-CC		=	gcc
+CC		=	clang
 
-CFLAGS		=	-W -Wall -I src/includes/ -I ../includes
+CFLAGS		=	-W -Wall -I src/includes/ -I ../includes --std=c90
 ifeq ($(DEBUG), 1)
  CFLAGS		+=	-ggdb3 -D DEBUG
 endif

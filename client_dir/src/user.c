@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:15:50 2014 Gabriel Poulet de Grimouard
-** Last update Fri Apr 18 18:41:13 2014 Gabriel Poulet de Grimouard
+** Last update Mon Apr 21 18:39:56 2014 Gabriel Poulet de Grimouard
 */
 
 #include <unistd.h>
@@ -15,9 +15,9 @@
 #include "client.h"
 #include "usual.h"
 
-t_user		*user_create(void)
+t_muser		*user_create(void)
 {
-  t_user	*this;
+  t_muser	*this;
 
   if (!(this = malloc(sizeof(*this))))
     exit(EXIT_FAILURE);
@@ -26,10 +26,13 @@ t_user		*user_create(void)
   this->hostname[0] = '\0';
   this->chans = NULL;
   this->mode = 0;
+  this->network.fd = -1;
   return (this);
 }
 
 void		client_init(t_client *client)
 {
   client->quit = FALSE;
+  client->cmd = NULL;
+  client->len_msg = 0;
 }

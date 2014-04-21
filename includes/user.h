@@ -4,8 +4,8 @@
 ** Made by Jean Fauquenot
 ** Login   <fauque_j@epitech.net>
 **
-** Started on  Sat Apr 19 19:55:04 2014 Jean Fauquenot
-** Last update Mon Apr 21 19:04:40 2014 Jean Fauquenot
+** Started on  Mon Apr 21 19:44:08 2014 Jean Fauquenot
+** Last update Mon Apr 21 19:51:58 2014 Jean Fauquenot
 */
 
 #ifndef USER_H_
@@ -40,7 +40,7 @@ typedef enum		e_flags_user
 # define FLAG_USER_WL_STR	"w"
 # define FLAG_USER_OL_STR	"o"
 
-typedef struct		s_user
+typedef struct		s_duser
 {
   char			nick[USER_NICK_LEN];
   char			realname[USER_REALNAME_LEN];
@@ -48,12 +48,12 @@ typedef struct		s_user
   t_chan		*chans;
   t_flags_user		mode;
   t_network		network;
-}			t_user;
+}			t_duser;
 
-typedef struct		s_user_l
+typedef struct		s_duser_l
 {
-  t_user		data;
-  struct s_user_l	*next;
-}			t_user_l;
+  t_duser		data;
+  struct s_duser_l	*next;
+}			t_duser_l;
 
 #endif /* !USER_H_ */

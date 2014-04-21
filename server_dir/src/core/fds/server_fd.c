@@ -16,7 +16,7 @@
 
 t_state		server_fd(t_select *settings,
 			  t_server *server,
-			  t_user_l **clist)
+			  t_duser_l **clist)
 {
   t_state	ret;
 

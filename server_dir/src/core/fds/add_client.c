@@ -33,7 +33,7 @@ static t_state	init_client_data_network(t_server *server, t_network *network)
   return (SUCCESS);
 }
 
-static t_state	init_client_data(t_server *server, t_user *user)
+static t_state	init_client_data(t_server *server, t_duser *user)
 {
   t_state	ret;
 
@@ -44,9 +44,9 @@ static t_state	init_client_data(t_server *server, t_user *user)
 }
 
 static t_state	set_client(t_server *server,
-			   t_user_l **new_elem)
+			   t_duser_l **new_elem)
 {
-  t_user_l	*new;
+  t_duser_l	*new;
   t_state	ret;
 
   if ((new = malloc(sizeof(*new))) == NULL)
@@ -61,11 +61,11 @@ static t_state	set_client(t_server *server,
   return (SUCCESS);
 }
 
-t_state		add_client(t_server *server, t_user_l **clist)
+t_state		add_client(t_server *server, t_duser_l **clist)
 {
-  t_user_l	*new;
+  t_duser_l	*new;
   t_state	ret;
-  t_user_l	*it;
+  t_duser_l	*it;
 
   if ((ret = set_client(server, &new)) != SUCCESS)
     return (ret);

@@ -5,29 +5,30 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 17 18:48:21 2014 Gabriel Poulet de Grimouard
-** Last update Fri Apr 18 20:15:06 2014 Gabriel Poulet de Grimouard
+** Last update Mon Apr 21 16:27:44 2014 Gabriel Poulet de Grimouard
 */
 
 #define  _XOPEN_SOURCE 700
 #include <string.h>
 #include <strings.h>
+#include <stdio.h>
 
 #include "error.h"
 #include "user.h"
 #include "client.h"
 
-static const	t_cmd	g_tab_cmd[] =
+static	t_cmd	g_tab_cmd[] =
   {
-    {"/j", "/join", "JOIN"},
-    {"", "/server", "SERVER"},
-    {"/n", "/nick", "NICK"},
-    {"/l", "/list", "LIST"},
-    {"", "/part", "PART"},
-    {"", "/quit", "QUIT"},
-    {"", "/user", "USER"},
-    {"", "/msg", "PRIVMSG"},
-    {"", "/send_file", ""},
-    {"", "/accept_file", ""},
+    {"/join", "JOIN", "/j"},
+    {"/server", "SERVER", ""},
+    {"/nick", "NICK", "/n"},
+    {"/list", "LIST", "/l"},
+    {"/part", "PART", ""},
+    {"/quit", "QUIT", ""},
+    {"/user", "USER", ""},
+    {"/msg", "PRIVMSG", ""},
+    {"/send_file", "send_file", ""},
+    {"/accept_file", "accept_file", ""},
   };
 
 static char	*recup_cmd(char *str)
@@ -40,8 +41,13 @@ static char	*recup_cmd(char *str)
   return (strndup(str, i));
 }
 
+/*
+** le 2e strlen est pas necessaire un calcul mathematique serai plus optimise.
+** de plus c'est dans une boucle critique d'optimisation.
+** a faire des que le reste fonctionne bien.
+*/
 static int	replace_cmd_in_buf(t_client *client, const char *to_repl,
-				   const char *repl_by)
+				   char *repl_by)
 {
   unsigned int	i;
 
@@ -49,6 +55,8 @@ static int	replace_cmd_in_buf(t_client *client, const char *to_repl,
   memmove(&client->msg[0] + i - strlen(to_repl), &client->msg[0], 510 - i);
   strncpy(&client->msg[0], repl_by, i);
   printf("%s\n", client->msg);
+  client->cmd = repl_by;
+  client->len_msg = strlen(client->msg);
   return (0);
 }
 
@@ -70,5 +78,5 @@ int		parse_cmd(t_client *client)
   if (client->msg[0] != '/')
     return (replace_cmd_in_buf(client, "", "PRIVMSG "));
   merror("invalid command");
-  return (0);
+  return (-1);
 }

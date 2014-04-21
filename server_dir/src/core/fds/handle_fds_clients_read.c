@@ -12,7 +12,7 @@
 
 t_state		handle_fds_clients_read(t_select *settings,
 					t_server *server,
-					t_user_l **clist)
+					t_duser_l **clist)
 {
   (void)settings;
   (void)server;
