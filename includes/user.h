@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Mon Apr 21 19:44:08 2014 Jean Fauquenot
-** Last update Mon Apr 21 19:51:58 2014 Jean Fauquenot
+** Last update Thu Apr 24 18:20:44 2014 Jean Fauquenot
 */
 
 #ifndef USER_H_
@@ -42,12 +42,14 @@ typedef enum		e_flags_user
 
 typedef struct		s_duser
 {
-  char			nick[USER_NICK_LEN];
-  char			realname[USER_REALNAME_LEN];
-  char			hostname[USER_HOSTNAME_LEN];
+  char			nick[USER_NICK_LEN + 1];
+  char			username[USER_USERNAME_LEN + 1];
+  char			realname[USER_REALNAME_LEN + 1];
+  char			hostname[USER_HOSTNAME_LEN + 1];
   t_chan		*chans;
   t_flags_user		mode;
   t_network		network;
+  char			buffer[USER_BUFFER];
 }			t_duser;
 
 typedef struct		s_duser_l
