@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 17 18:48:21 2014 Gabriel Poulet de Grimouard
-** Last update Mon Apr 21 16:27:44 2014 Gabriel Poulet de Grimouard
+** Last update Sat Apr 26 15:00:26 2014 Gabriel Poulet de Grimouard
 */
 
 #define  _XOPEN_SOURCE 700
@@ -27,6 +27,7 @@ static	t_cmd	g_tab_cmd[] =
     {"/quit", "QUIT", ""},
     {"/user", "USER", ""},
     {"/msg", "PRIVMSG", ""},
+    {"/me", "ACTION", ""},
     {"/send_file", "send_file", ""},
     {"/accept_file", "accept_file", ""},
   };
@@ -55,7 +56,10 @@ static int	replace_cmd_in_buf(t_client *client, const char *to_repl,
   memmove(&client->msg[0] + i - strlen(to_repl), &client->msg[0], 510 - i);
   strncpy(&client->msg[0], repl_by, i);
   printf("%s\n", client->msg);
-  client->cmd = repl_by;
+  if (strcmp(repl_by, "PRIVMSG "))
+    client->cmd = repl_by;
+  else
+    client->cmd = "PRIVMSG ";
   client->len_msg = strlen(client->msg);
   return (0);
 }

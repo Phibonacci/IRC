@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Mon Apr 21 19:44:08 2014 Jean Fauquenot
-** Last update Mon Apr 21 19:51:58 2014 Jean Fauquenot
+** Last update Sat Apr 26 13:35:47 2014 Gabriel Poulet de Grimouard
 */
 
 #ifndef USER_H_
@@ -14,6 +14,7 @@
 # include	"setvalues.h"
 # include	"network.h"
 # include	"chan.h"
+# include	"chainlist.h"
 
 /*
 ** FLAG_<name><case>
@@ -45,7 +46,7 @@ typedef struct		s_duser
   char			nick[USER_NICK_LEN];
   char			realname[USER_REALNAME_LEN];
   char			hostname[USER_HOSTNAME_LEN];
-  t_chan		*chans;
+  t_list		*lchans;
   t_flags_user		mode;
   t_network		network;
 }			t_duser;

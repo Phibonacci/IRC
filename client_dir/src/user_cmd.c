@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Sat Apr 19 16:41:29 2014 Gabriel Poulet de Grimouard
-** Last update Mon Apr 21 19:20:48 2014 Gabriel Poulet de Grimouard
+** Last update Sat Apr 26 13:34:25 2014 Gabriel Poulet de Grimouard
 */
 
 #define _XOPEN_SOURCE 700
@@ -27,7 +27,7 @@
 #include "usual.h"
 #include "error.h"
 
-static int		user_connect_to_srv(t_muser *user,
+static int		user_connect_to_srv(t_duser *user,
 					    int port, struct in_addr *ip)
 {
   struct protoent	*pe;
@@ -39,7 +39,6 @@ static int		user_connect_to_srv(t_muser *user,
     return (merror("%s: %s", "socket failed", strerror(errno)));
   addr->sin_family = AF_INET;
   addr->sin_port = htons(port);
-  printf("ip = %s\n", inet_ntoa(*ip));
   addr->sin_addr.s_addr = inet_addr(inet_ntoa(*ip));
   if (connect(user->network.fd, (const struct sockaddr *)addr,
 	      sizeof(*addr)) == -1)
@@ -50,7 +49,7 @@ static int		user_connect_to_srv(t_muser *user,
 static void	get_ip_port(char *msg, int *port, char **ip)
 {
   unsigned int	i;
-  int		a;
+  unsigned int	a;
 
   i = 0;
   while (msg[i] && msg[i] != ' ')
@@ -61,56 +60,38 @@ static void	get_ip_port(char *msg, int *port, char **ip)
   while (msg[a] && msg[a] != ':' && msg[a] != '\n' && msg[a] != '\r')
     ++a;
   *ip = strndup(&msg[i], a - i);
-  printf("%s\n", *ip);
   if (msg[a] == ':')
     *port = atoi(&msg[a + 1]);
 }
 
-t_state			user_serv_cmd(t_client *client, t_muser *user)
+t_state			user_serv_cmd(t_client *client, t_duser *user)
 {
-  int			port;
   char			*ip;
   struct hostent*	pHostInfo;
   struct in_addr	**addr_list;
 
-  port = 0;
-  get_ip_port(client->msg, &port, &ip);
-  pHostInfo = gethostbyname(ip);
+  printf("SERVER is trying to connect...\n");
+  get_ip_port(client->msg, &user->network.port, &ip);
+  if ((pHostInfo = gethostbyname(ip)) == NULL)
+    return (FAILURE_L1);
   addr_list = (struct in_addr **)pHostInfo->h_addr_list;
-  if (!user_connect_to_srv(user, port, addr_list[0]))
+  if (!user_connect_to_srv(user, user->network.port, addr_list[0]))
     return (FAILURE_L1);
   if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
     return (FAILURE_L1);
+  printf("SERVER connected !\n");
   return (SUCCESS);
 }
 
-t_state	user_join_cmd(t_client *client, t_muser *user)
+t_state		user_join_cmd(t_client *client, t_duser *user)
 {
-  if (user->network.fd != -1)
-    if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
+  if (user->network.fd == -1)
+    {
+      printf("You are not connected to a server !\n");
       return (FAILURE_L1);
-  return (SUCCESS);
-}
-
-t_state	user_msg_cmd(t_client *client, t_muser *user)
-{
-  if (user->network.fd != -1)
-    if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
-      return (FAILURE_L1);
-  return (SUCCESS);
-}
-
-t_state	user_nick_cmd(t_client *client, t_muser *user)
-{
-  char	*nick;
-
-  if (user->network.fd != -1)
-    if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
-      return (FAILURE_L1);
-  nick = client->msg + strlen(client->cmd);
-  while (*nick && *nick == ' ')
-    ++nick;
-  strncpy(user->nick, nick, 16);
-  printf("%s\n", user->nick);
+    }
+  if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
+    return (FAILURE_L1);
+  add_chans(user, client);
   return (SUCCESS);
 }

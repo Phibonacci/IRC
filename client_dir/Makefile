@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Tue Apr 15 15:57:34 2014 Jean Fauquenot
-## Last update Mon Apr 21 18:38:00 2014 Gabriel Poulet de Grimouard
+## Last update Sat Apr 26 13:52:35 2014 Gabriel Poulet de Grimouard
 ##
 
 DEBUG		=	0
@@ -19,7 +19,12 @@ SRC		=	main.c 		\
 			user.c 		\
 			user_command.c 	\
 			error.c		\
-			user_cmd.c
+			user_cmd.c	\
+			user_cmd2.c	\
+			user_cmd3.c	\
+			chan.c		\
+			list1.c		\
+			list2.c
 
 VPATH		=	src
 
