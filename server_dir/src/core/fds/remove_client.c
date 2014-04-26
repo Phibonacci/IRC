@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Mon Apr 21 15:44:27 2014 Jean Fauquenot
-** Last update Mon Apr 21 16:53:46 2014 Jean Fauquenot
+** Last update Thu Apr 24 11:47:49 2014 Jean Fauquenot
 */
 
 #include	"error.h"
@@ -51,7 +51,9 @@ t_state		remove_client(t_duser_l **clist, t_duser_l *to_free)
       return (SUCCESS);
     }
   else if (it == to_free)
-    *clist = NULL;
+    {
+      *clist = (*clist)->next;
+    }
   else if (it->next == to_free)
     it->next = it->next->next;
   return (free_duser_l(to_free));

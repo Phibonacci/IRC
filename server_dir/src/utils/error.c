@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 16:14:24 2014 Jean Fauquenot
-** Last update Thu Apr 17 18:10:14 2014 Jean Fauquenot
+** Last update Tue Apr 22 16:31:49 2014 Jean Fauquenot
 */
 
 #include	"error.h"
