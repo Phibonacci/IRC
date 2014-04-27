@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 24 14:13:58 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:17:41 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 21:49:18 2014 Gabriel Poulet de Grimouard
 */
 
 #define _BSD_SOURCE
@@ -70,7 +70,7 @@ t_state		user_nick_cmd(t_client *client, t_duser *user)
   nick = client->msg + strlen(client->cmd);
   while (*nick && *nick == ' ')
     ++nick;
-  strncpy(user->nick, nick, 16);
+  strncpy(user->nick, nick, 15);
   return (SUCCESS);
 }
 

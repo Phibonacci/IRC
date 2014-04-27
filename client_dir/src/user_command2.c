@@ -5,15 +5,17 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Sun Apr 27 21:07:00 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:36:01 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 21:56:53 2014 Gabriel Poulet de Grimouard
 */
 
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "client.h"
 #include "user.h"
 #include "usual.h"
+#include "error.h"
 
 static const t_fnct	g_tab_fnct[] =
   {
@@ -44,10 +46,13 @@ static int	user_exec_cmd(t_client *client, t_duser *user)
   return (0);
 }
 
-t_state	read_cmd(t_client *client, t_duser *user)
+t_state		read_cmd(t_client *client, t_duser *user)
 {
   if ((client->len_msg = read(0, client->msg, 510)) <= 0)
-    return (FAILURE);
+    {
+      merror("%s: %s", "read failed", strerror(errno));
+      return (FAILURE);
+    }
   client->msg[client->len_msg - 1] = '\r';
   client->msg[client->len_msg] = '\n';
   client->msg[client->len_msg + 1] = '\0';

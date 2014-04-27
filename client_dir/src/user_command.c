@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:41:59 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:13:00 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 21:56:18 2014 Gabriel Poulet de Grimouard
 */
 
 #include <unistd.h>
@@ -92,7 +92,8 @@ static void	select_check(t_client *cli, t_duser *user, fd_set *fd_read)
 	user = user_create();
       }
   if (FD_ISSET(0, fd_read))
-    read_cmd(cli, user);
+    if (read_cmd(cli, user) == FAILURE)
+      cli->quit = TRUE;
 }
 
 void		user_cmd(t_duser *user)
