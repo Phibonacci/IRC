@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 20:26:47 2014 Jean Fauquenot
-** Last update Tue Apr 22 13:27:59 2014 Jean Fauquenot
+** Last update Sun Apr 27 22:39:24 2014 Jean Fauquenot
 */
 
 #include	"core.h"
@@ -18,6 +18,13 @@
 #include	<string.h>
 #include	<stdio.h>
 
+void		init_loop(t_bool *quit, t_duser_l **users, t_chan_l **chans)
+{
+  *chans = NULL;
+  *users = NULL;
+  *quit = FALSE;
+}
+
 /**
 ** Loop any time a file descriptor is up.
 ** @param server a t_server argument.
@@ -25,25 +32,23 @@
 */
 t_state		select_loop(t_server *server)
 {
-  t_bool	quit;
   int		ret;
   t_select	settings;
-  t_duser_l	*clist;
+  t_irc		irc;
 
-  clist = NULL;
-  quit = FALSE;
-  set_select(&settings, server, clist);
-  while (!quit && (ret = select(settings.ndfs,
+  init_loop(&irc.quit, &irc.users, &irc.chans);
+  set_select(&settings, server, irc.users);
+  while (!irc.quit && (ret = select(settings.ndfs,
 				&(settings.readfds),
 				&(settings.writefds),
 				NULL,
 				NULL)) != -1)
     {
-      if (handle_fds(&settings, server, &clist, &quit) == FAILURE)
+      if (handle_fds(&settings, server, &irc) == FAILURE)
 	return (FAILURE);
-      set_select(&settings, server, clist);
+      set_select(&settings, server, irc.users);
     }
-  if (destroy_clients_list(&clist) == FAILURE)
+  if (destroy_clients_list(&irc, &irc.users) == FAILURE)
     return (FAILURE);
   if (ret == -1)
     return (merror("%s: %s", E_SELECT, strerror(errno)));

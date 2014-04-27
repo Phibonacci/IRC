@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Tue Apr 22 02:11:24 2014 Jean Fauquenot
-** Last update Thu Apr 24 12:54:59 2014 Jean Fauquenot
+** Last update Sun Apr 27 22:40:33 2014 Jean Fauquenot
 */
 
 #include	"core.h"
@@ -14,7 +14,8 @@
 
 t_state		handle_fds_clients_write(t_select *settings,
 					 t_server *server,
-					 t_duser_l **clist)
+					 t_duser_l **clist,
+					 t_irc *irc)
 {
   t_duser_l	*it;
   t_state	ret;
@@ -29,7 +30,7 @@ t_state		handle_fds_clients_write(t_select *settings,
 	  if (ret == FAILURE)
 	    return (FAILURE);
 	  else if (ret == FAILURE_L1)
-	    remove_client(clist, it);
+	    remove_client(irc, clist, it);
 	}
       it = it->next;
     }

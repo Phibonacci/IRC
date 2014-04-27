@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Fri Apr 18 18:26:35 2014 Jean Fauquenot
-** Last update Tue Apr 22 16:11:13 2014 Jean Fauquenot
+** Last update Sun Apr 27 16:24:36 2014 Jean Fauquenot
 */
 
 #include	"core.h"
@@ -38,7 +38,7 @@ static t_state	init_client_data(t_server *server, t_duser *user)
 {
   t_state	ret;
 
-  bzero(user, sizeof(*user));
+  memset(user, 0, sizeof(*user));
   if ((ret = init_client_data_network(server, &user->network)) != SUCCESS)
     return (ret);
   return (SUCCESS);

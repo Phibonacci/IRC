@@ -5,12 +5,13 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Mon Apr 21 19:44:08 2014 Jean Fauquenot
-** Last update Thu Apr 24 18:20:44 2014 Jean Fauquenot
+** Last update Sun Apr 27 19:22:54 2014 Jean Fauquenot
 */
 
 #ifndef USER_H_
 # define USER_H_
 
+# include	"usual.h"
 # include	"setvalues.h"
 # include	"network.h"
 # include	"chan.h"
@@ -42,11 +43,13 @@ typedef enum		e_flags_user
 
 typedef struct		s_duser
 {
+  t_bool		identify;
   char			nick[USER_NICK_LEN + 1];
   char			username[USER_USERNAME_LEN + 1];
   char			realname[USER_REALNAME_LEN + 1];
   char			hostname[USER_HOSTNAME_LEN + 1];
   t_chan		*chans;
+  t_chan		*channel[MAX_CHANNEL_BY_USER + 1];
   t_flags_user		mode;
   t_network		network;
   char			buffer[USER_BUFFER];

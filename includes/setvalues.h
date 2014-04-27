@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Thu Apr 17 13:53:53 2014 Jean Fauquenot
-** Last update Thu Apr 24 21:10:20 2014 Jean Fauquenot
+** Last update Sun Apr 27 15:47:55 2014 Jean Fauquenot
 */
 
 #ifndef SETVALUES_H_
@@ -23,11 +23,10 @@
 
 # define MAX_CHANNEL_BY_USER	10
 
-
 /*
-** Upgraded to 16 by a new rfc
+** Upgraded from 9 to 16 by a new rfc
 */
-# define USER_NICK_LEN		9
+# define USER_NICK_LEN		16
 
 # define USER_USERNAME_LEN	10
 # define USER_REALNAME_LEN	32

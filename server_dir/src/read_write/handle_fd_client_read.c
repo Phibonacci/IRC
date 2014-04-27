@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Mon Apr 21 23:28:18 2014 Jean Fauquenot
-** Last update Thu Apr 24 13:53:46 2014 Jean Fauquenot
+** Last update Sun Apr 27 11:24:20 2014 Jean Fauquenot
 */
 
 #include	"user.h"
@@ -31,7 +31,13 @@ static t_bool	find_new_cmd(char **new_cmd)
   return (TRUE);
 }
 
-t_state		handle_fd_client_read(t_duser *user)
+t_state		handle_fd_client_read_error(void)
+{
+  merror("%s: %s", E_RECV, strerror(errno));
+  return (FAILURE_L1);
+}
+
+t_state		handle_fd_client_read(t_irc *irc, t_duser *user)
 {
   char		cmd[CMD_LEN + 1];
   int		ret;
@@ -49,14 +55,11 @@ t_state		handle_fd_client_read(t_duser *user)
 	{
 	  prev_cmd = new_cmd;
 	  loop = find_new_cmd(&new_cmd);
-	  if ((state = handle_command(user, prev_cmd)) != SUCCESS)
+	  if ((state = handle_command(irc, user, prev_cmd)) != SUCCESS)
 	    return (state);
 	}
     }
   else
-    {
-      merror("%s: %s", E_RECV, strerror(errno));
-      return (FAILURE_L1);
-    }
+    return (handle_fd_client_read_error());
   return (SUCCESS);
 }

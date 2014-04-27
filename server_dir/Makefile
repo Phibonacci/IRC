@@ -5,7 +5,7 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Mon Apr 21 19:48:01 2014 Jean Fauquenot
-## Last update Thu Apr 24 17:23:35 2014 Jean Fauquenot
+## Last update Sun Apr 27 22:08:09 2014 Jean Fauquenot
 ##
 
 DEBUG		=	0
@@ -19,7 +19,8 @@ INCLUDES	=	-I./../includes -I src/includes/
 SRC		=	main.c
 VPATH		=	src
 
-SRC		+=	error.c
+SRC		+=	error.c \
+			array_ptr_len.c
 VPATH		+=	:src/utils
 
 SRC		+=	server.c \
@@ -42,11 +43,13 @@ VPATH		+=	:src/core/fds
 
 SRC		+=	handle_fd_client_read.c \
 			handle_fd_client_write.c \
-			write_to_client.c
+			write_to_client.c \
+			error_to_client.c
 VPATH		+=	:src/read_write
 
 SRC		+=	handle_command.c
 VPATH		+=	:src/commands
+
 SRC		+=	command_lexer.c \
 			l_message.c \
 			l_prefix.c \
@@ -60,11 +63,38 @@ SRC		+=	command_lexer.c \
 			l_number.c
 VPATH		+=	:src/commands/lexer
 
-SRC		+=	command_parser.c
+SRC		+=	command_parser.c \
+			p_nick.c \
+			p_join.c \
+			p_mode.c \
+			p_ping.c \
+			p_user.c \
+			p_whois.c \
+			p_privmsg.c \
+			p_list.c \
+			p_who.c \
+			p_part.c
 VPATH		+=	:src/commands/parser
 
-SRC		+=	command_execute.c
+SRC		+=	command_execute.c \
+			e_nick.c \
+			e_join.c \
+			e_join_aux.c \
+			e_mode.c \
+			e_ping.c \
+			e_user.c \
+			e_whois.c \
+			e_privmsg.c \
+			e_list.c \
+			e_who.c \
+			e_part.c \
+			send_message_channel.c
 VPATH		+=	:src/commands/execute
+
+SRC		+=	new_chan.c \
+			add_chan_to_list.c \
+			add_user_to_chan.c
+VPATH		+=	:src/chans
 
 OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 

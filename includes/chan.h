@@ -5,13 +5,14 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Wed Apr 16 17:04:57 2014 Jean Fauquenot
-** Last update Mon Apr 21 19:50:12 2014 Jean Fauquenot
+** Last update Sun Apr 27 15:52:29 2014 Jean Fauquenot
 */
 
 #ifndef CHAN_H_
 # define CHAN_H_
 
 # include	"setvalues.h"
+# include	"usual.h"
 
 # include	<stdint.h>
 
@@ -89,5 +90,22 @@ typedef struct		s_chan
   char			key[CHAN_KEY_LEN];
   t_chan_user		*users;
 }			t_chan;
+
+typedef struct		s_chan_l
+{
+  t_chan		data;
+  struct s_chan_l	*next;
+}			t_chan_l;
+
+typedef struct		s_irc
+{
+  t_bool		quit;
+  struct s_duser_l	*users;
+  t_chan_l		*chans;
+}			t_irc;
+
+t_chan_l	*new_chan(char *name);
+t_state		add_chans_to_list(t_chan_l **list, t_chan_l *chan);
+t_state		add_user_to_chan(t_chan *chan, struct s_duser *user);
 
 #endif /* !CHAN_H_ */

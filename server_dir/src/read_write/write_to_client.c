@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Tue Apr 22 13:31:31 2014 Jean Fauquenot
-** Last update Thu Apr 24 19:46:23 2014 Jean Fauquenot
+** Last update Sat Apr 26 14:56:44 2014 Jean Fauquenot
 */
 
 #include	"user.h"
@@ -55,5 +55,4 @@ void		write_to_client(t_duser *user, char *msg, ...)
   vsprintf(str, msg, ap);
   va_end(ap);
   add_msg(&(user->buffer[0]), str);
-  dprintf(1, "SEND: [%s]\n", str);
 }

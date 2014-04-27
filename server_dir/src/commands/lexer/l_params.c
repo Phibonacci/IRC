@@ -5,10 +5,12 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Tue Apr 22 18:24:56 2014 Jean Fauquenot
-** Last update Thu Apr 24 13:47:30 2014 Jean Fauquenot
+** Last update Sat Apr 26 14:00:22 2014 Jean Fauquenot
 */
 
 #include	"lexer.h"
+
+#include	<stddef.h>
 
 static t_bool	add_param(char **scmd, t_cmd *cmd)
 {

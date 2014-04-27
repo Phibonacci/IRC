@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Fri Apr 18 12:52:49 2014 Jean Fauquenot
-** Last update Tue Apr 22 13:26:07 2014 Jean Fauquenot
+** Last update Sun Apr 27 11:14:42 2014 Jean Fauquenot
 */
 
 #include	"core.h"
@@ -37,17 +37,16 @@ static t_state	read_stdin(t_bool *quit)
 
 t_state		handle_fds(t_select *settings,
 			   t_server *server,
-			   t_duser_l **clist,
-			   t_bool *quit)
+			   t_irc *irc)
 {
   t_state	ret;
 
   if (FD_ISSET(0, &settings->readfds))
-    if (read_stdin(quit) == FAILURE)
+    if (read_stdin(&irc->quit) == FAILURE)
       return (FAILURE);
-  if ((ret = server_fd(settings, server, clist)) == FAILURE)
+  if ((ret = server_fd(settings, server, &irc->users)) == FAILURE)
     return (FAILURE);
-  if ((ret = handle_fds_clients(settings, server, clist)) == FAILURE)
+  if ((ret = handle_fds_clients(settings, server, irc)) == FAILURE)
     return (FAILURE);
   return (SUCCESS);
 }
