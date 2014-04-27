@@ -5,15 +5,12 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:41:59 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:56:18 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 22:03:04 2014 Gabriel Poulet de Grimouard
 */
 
-#include <unistd.h>
-#include <string.h>
 #include <strings.h>
-#include <stdio.h>
-#include <sys/time.h>
-#include <sys/types.h>
+#include <string.h>
+#include <unistd.h>
 #include <errno.h>
 
 #include "client.h"

@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Sat Apr 19 16:41:29 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:43:39 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 22:09:05 2014 Gabriel Poulet de Grimouard
 */
 
 #define _XOPEN_SOURCE 700
@@ -73,12 +73,15 @@ t_state			user_serv_cmd(t_client *client, t_duser *user)
   printf("SERVER is trying to connect...\n");
   get_ip_port(client->msg, &user->network.port, &ip);
   if ((pHostInfo = gethostbyname(ip)) == NULL)
-    return (FAILURE_L1);
+    {
+      merror("%s: %s\n", "invalid address", strerror(errno));
+      return (FAILURE_L1);
+    }
   addr_list = (struct in_addr **)pHostInfo->h_addr_list;
   if (user_connect_to_srv(&user->network, user->network.port,
 			  (addr_list[0])->s_addr))
     {
-      merror("%s: %s", "connect failed", strerror(errno));
+      merror("%s: %s\n", "connect failed", strerror(errno));
       return (FAILURE_L1);
     }
   printf("SERVER connected !\n");

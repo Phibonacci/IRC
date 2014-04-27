@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:45:58 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:47:04 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 22:04:12 2014 Gabriel Poulet de Grimouard
 */
 
 #ifndef CLIENT_H_
@@ -14,7 +14,6 @@
 # include <sys/select.h>
 # include <sys/time.h>
 # include <sys/types.h>
-# include <unistd.h>
 
 # include "usual.h"
 # include "network.h"
