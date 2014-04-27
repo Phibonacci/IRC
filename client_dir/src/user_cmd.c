@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Sat Apr 19 16:41:29 2014 Gabriel Poulet de Grimouard
-** Last update Sat Apr 26 13:34:25 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 16:20:12 2014 Gabriel Poulet de Grimouard
 */
 
 #define _XOPEN_SOURCE 700
@@ -27,26 +27,26 @@
 #include "usual.h"
 #include "error.h"
 
-static int		user_connect_to_srv(t_duser *user,
-					    int port, struct in_addr *ip)
+int		user_connect_to_srv(t_network *net,
+				    int port, in_addr_t ip)
 {
   struct protoent	*pe;
   struct sockaddr_in	*addr;
 
-  addr = &user->network.addr;
+  addr = &net->addr;
   pe = getprotobyname("TCP");
-  if ((user->network.fd = socket(AF_INET, SOCK_STREAM, pe->p_proto)) == -1)
+  if ((net->fd = socket(AF_INET, SOCK_STREAM, pe->p_proto)) == -1)
     return (merror("%s: %s", "socket failed", strerror(errno)));
   addr->sin_family = AF_INET;
   addr->sin_port = htons(port);
-  addr->sin_addr.s_addr = inet_addr(inet_ntoa(*ip));
-  if (connect(user->network.fd, (const struct sockaddr *)addr,
+  addr->sin_addr.s_addr = ip;
+  if (connect(net->fd, (const struct sockaddr *)addr,
 	      sizeof(*addr)) == -1)
     return (merror("%s: %s", "connect failed", strerror(errno)));
   return (SUCCESS);
 }
 
-static void	get_ip_port(char *msg, int *port, char **ip)
+void		get_ip_port(char *msg, int *port, char **ip)
 {
   unsigned int	i;
   unsigned int	a;
@@ -67,7 +67,7 @@ static void	get_ip_port(char *msg, int *port, char **ip)
 t_state			user_serv_cmd(t_client *client, t_duser *user)
 {
   char			*ip;
-  struct hostent*	pHostInfo;
+  struct hostent	*pHostInfo;
   struct in_addr	**addr_list;
 
   printf("SERVER is trying to connect...\n");
@@ -75,9 +75,8 @@ t_state			user_serv_cmd(t_client *client, t_duser *user)
   if ((pHostInfo = gethostbyname(ip)) == NULL)
     return (FAILURE_L1);
   addr_list = (struct in_addr **)pHostInfo->h_addr_list;
-  if (!user_connect_to_srv(user, user->network.port, addr_list[0]))
-    return (FAILURE_L1);
-  if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
+  if (!user_connect_to_srv(&user->network, user->network.port,
+			   (addr_list[0])->s_addr))
     return (FAILURE_L1);
   printf("SERVER connected !\n");
   return (SUCCESS);
@@ -90,8 +89,6 @@ t_state		user_join_cmd(t_client *client, t_duser *user)
       printf("You are not connected to a server !\n");
       return (FAILURE_L1);
     }
-  if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
-    return (FAILURE_L1);
   add_chans(user, client);
   return (SUCCESS);
 }

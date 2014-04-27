@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 17 18:48:21 2014 Gabriel Poulet de Grimouard
-** Last update Sat Apr 26 15:00:26 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 12:08:35 2014 Gabriel Poulet de Grimouard
 */
 
 #define  _XOPEN_SOURCE 700
@@ -28,8 +28,9 @@ static	t_cmd	g_tab_cmd[] =
     {"/user", "USER", ""},
     {"/msg", "PRIVMSG", ""},
     {"/me", "ACTION", ""},
-    {"/send_file", "send_file", ""},
-    {"/accept_file", "accept_file", ""},
+    {"/setipport", "IPPORT", ""},
+    {"/send_file", "SEND", ""},
+    {"/accept_file", "ACCEPT", ""}
   };
 
 static char	*recup_cmd(char *str)
@@ -37,7 +38,7 @@ static char	*recup_cmd(char *str)
   unsigned int	i;
 
   i = 0;
-  while (str[i] && str[i] != ' ' && str[i] != '\t')
+  while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\r')
     i++;
   return (strndup(str, i));
 }

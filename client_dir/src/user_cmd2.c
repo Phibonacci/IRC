@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Mon Apr 21 19:58:40 2014 Gabriel Poulet de Grimouard
-** Last update Sat Apr 26 16:49:54 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 13:36:25 2014 Gabriel Poulet de Grimouard
 */
 
 #include <string.h>
@@ -57,12 +57,8 @@ t_state		user_privmsg_cmd(t_client *client, t_duser *user)
       printf("You are not connected to a server !\n");
       return (FAILURE_L1);
     }
-  if (user->network.fd != -1)
-    {
-      make_msg(client);
-      if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
-	return (FAILURE_L1);
-    }
+  make_msg(client);
+  client->len_msg = strlen(client->msg);
   return (SUCCESS);
 }
 
@@ -73,13 +69,8 @@ t_state	user_msg_cmd(t_client *client, t_duser *user)
       printf("You are not connected to a server !\n");
       return (FAILURE_L1);
     }
-  if (user->network.fd != -1)
-    {
-      if (user->lchans->count > 0)
-	insert_chan(client, ((t_chan*)user->lchans->first->val.ptr)->name);
-      if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
-	return (FAILURE_L1);
-    }
+  if (user->lchans->count > 0)
+    insert_chan(client, ((t_chan*)user->lchans->first->val.ptr)->name);
   return (SUCCESS);
 }
 
@@ -92,9 +83,6 @@ t_state	user_nick_cmd(t_client *client, t_duser *user)
       printf("You are not connected to a server !\n");
       return (FAILURE_L1);
     }
-  if (user->network.fd != -1)
-    if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
-      return (FAILURE_L1);
   nick = client->msg + strlen(client->cmd);
   while (*nick && *nick == ' ')
     ++nick;
@@ -104,26 +92,25 @@ t_state	user_nick_cmd(t_client *client, t_duser *user)
 
 t_state	user_user_cmd(t_client *client, t_duser *user)
 {
+  (void)client;
   if (user->network.fd == -1)
     {
       printf("You are not connected to a server !\n");
       return (FAILURE_L1);
     }
-  if (user->network.fd != -1)
-    if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
-      return (FAILURE_L1);
   return (SUCCESS);
 }
 
 t_state user_quit_cmd(t_client *client, t_duser *user)
 {
+  (void)client;
   if (user->network.fd == -1)
     {
       printf("You are not connected to a server !\n");
       return (FAILURE_L1);
     }
-  if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
-    return (FAILURE_L1);
+  if (FD_ISSET(user->network.fd, &client->fd_write))
+    write_to_serv(client, user);
   close(user->network.fd);
   free(user);
   user = user_create();

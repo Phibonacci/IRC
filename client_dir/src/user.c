@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:15:50 2014 Gabriel Poulet de Grimouard
-** Last update Sat Apr 26 13:53:09 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 16:25:12 2014 Gabriel Poulet de Grimouard
 */
 
 #include <unistd.h>
@@ -34,6 +34,13 @@ t_duser		*user_create(void)
 void		client_init(t_client *client)
 {
   client->quit = FALSE;
+  client->towrite = FALSE;
+  FD_ZERO(&client->fd_write);
   client->cmd = NULL;
   client->len_msg = 0;
+  client->ip = 0;
+  client->port = 4242;
+  client->fxchg.fd = -1;
+  client->fxchg.ip = 0;
+  client->fxchg.port = 0;
 }
