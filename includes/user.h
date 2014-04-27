@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Sun Apr 27 23:20:49 2014 Jean Fauquenot
-** Last update Sun Apr 27 23:21:12 2014 Jean Fauquenot
+** Last update Sun Apr 27 23:23:44 2014 Jean Fauquenot
 */
 
 #ifndef USER_H_

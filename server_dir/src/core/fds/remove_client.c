@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Mon Apr 21 15:44:27 2014 Jean Fauquenot
-** Last update Sun Apr 27 23:06:42 2014 Jean Fauquenot
+** Last update Sun Apr 27 23:24:36 2014 Jean Fauquenot
 */
 
 #include	"error.h"
@@ -18,20 +18,10 @@
 #include	<errno.h>
 #include	<stdlib.h>
 
-/*
-** if alone on chan → delete chan
-*/
-static t_state	free_chans(t_chan *chans)
-{
-  (void)chans;
-  return (SUCCESS);
-}
-
 static t_state	free_duser_l(t_duser_l *to_free)
 {
   if (close(to_free->data.network.fd) == -1)
     return (merror("%s: %s", E_CLOSE, strerror(errno)));
-  free_chans(to_free->data.chans);
   free(to_free);
   return (SUCCESS);
 }
