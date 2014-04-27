@@ -5,8 +5,10 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 13:58:25 2014 Gabriel Poulet de Grimouard
-** Last update Mon Apr 21 20:00:15 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 23:26:25 2014 Gabriel Poulet de Grimouard
 */
+
+#include <stdlib.h>
 
 #include "user.h"
 #include "client.h"

@@ -5,13 +5,14 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:41:59 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 22:03:04 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 23:26:59 2014 Gabriel Poulet de Grimouard
 */
 
 #include <strings.h>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <stdlib.h>
 
 #include "client.h"
 #include "user.h"
@@ -28,10 +29,10 @@ t_state		write_to_serv(t_client *client, t_duser *user)
   return (SUCCESS);
 }
 
-static t_state	read_sock(t_client *client, int fd)
+static t_state	read_sock(t_client *client, int fd, fd_set *fd_read)
 {
   client->len_msg = 510;
-  while (client->len_msg == 510)
+  while (FD_ISSET(fd, fd_read) && client->len_msg == 510)
     {
       if ((client->len_msg = read(fd, client->msg, 510)) <= 0)
 	return (FAILURE);
@@ -53,8 +54,7 @@ static void	init_select(t_client *cli, int *fd, fd_set *fd_read,
 			    t_duser *user)
 {
   cli->fxchg.is_inuse = 0;
-  if (user->network.fd == -1)
-    *fd = 2;
+  *fd = 2;
   FD_ZERO(fd_read);
   cli->towrite = FALSE;
   FD_SET(0, fd_read);
@@ -82,7 +82,7 @@ static void	select_check(t_client *cli, t_duser *user, fd_set *fd_read)
   if (user->network.fd && FD_ISSET(user->network.fd, &cli->fd_write))
     write_to_serv(cli, user);
   if (user->network.fd && (FD_ISSET(user->network.fd, fd_read)))
-    if (read_sock(cli, user->network.fd) != SUCCESS)
+    if (read_sock(cli, user->network.fd, fd_read) != SUCCESS)
       {
 	merror("%s: %s", "server socket is down", strerror(errno));
 	free(user);

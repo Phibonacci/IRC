@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Sat Apr 19 16:41:29 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 22:09:05 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 22:57:36 2014 Gabriel Poulet de Grimouard
 */
 
 #define _XOPEN_SOURCE 700
@@ -34,7 +34,8 @@ int			user_connect_to_srv(t_network *net,
   struct sockaddr_in	*addr;
 
   addr = &net->addr;
-  pe = getprotobyname("TCP");
+  if ((pe = getprotobyname("TCP")) == NULL)
+    return (merror("%s: %s", "getprotobyname", strerror(errno)));
   if ((net->fd = socket(AF_INET, SOCK_STREAM, pe->p_proto)) == -1)
     return (merror("%s: %s", "socket failed", strerror(errno)));
   addr->sin_family = AF_INET;
@@ -72,7 +73,7 @@ t_state			user_serv_cmd(t_client *client, t_duser *user)
 
   printf("SERVER is trying to connect...\n");
   get_ip_port(client->msg, &user->network.port, &ip);
-  if ((pHostInfo = gethostbyname(ip)) == NULL)
+  if (ip == NULL || (pHostInfo = gethostbyname(ip)) == NULL)
     {
       merror("%s: %s\n", "invalid address", strerror(errno));
       return (FAILURE_L1);
@@ -85,7 +86,8 @@ t_state			user_serv_cmd(t_client *client, t_duser *user)
       return (FAILURE_L1);
     }
   printf("SERVER connected !\n");
-  printf("port = %d\n", user->network.port);
+  client->msg[0] = '\0';
+  client->len_msg = 0;
   return (SUCCESS);
 }
 
