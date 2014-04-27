@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Sun Apr 27 22:04:31 2014 Jean Fauquenot
-** Last update Sun Apr 27 23:30:21 2014 Jean Fauquenot
+** Last update Sun Apr 27 23:34:02 2014 Jean Fauquenot
 */
 
 #include	"execute.h"
@@ -39,7 +39,7 @@ void		remove_chan_if_empty(t_chan_l **root, t_chan *chan)
   t_chan_l	*prev;
   t_chan_l	*list;
 
-  if (!chan || chan->users)
+  if (!*root || !chan || chan->users)
     return ;
   list = *root;
   prev = NULL;
@@ -51,7 +51,6 @@ void		remove_chan_if_empty(t_chan_l **root, t_chan *chan)
 	    *root = list->next;
 	  else
 	    prev->next = list->next;
-	  free(list);
 	}
       prev = list;
       list = list->next;
