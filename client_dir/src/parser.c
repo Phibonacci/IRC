@@ -5,13 +5,14 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 17 18:48:21 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:33:21 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 22:55:55 2014 Gabriel Poulet de Grimouard
 */
 
 #define  _XOPEN_SOURCE 700
 #include <string.h>
 #include <strings.h>
 #include <stdio.h>
+#include <errno.h>
 
 #include "error.h"
 #include "user.h"
@@ -68,7 +69,10 @@ int		parse_cmd(t_client *client)
 
   i = LEN(g_tab_cmd);
   if (!(cmd = recup_cmd(client->msg)))
-    return (0);
+    {
+      merror("%s: %s", "strdup failed", strerror(errno));
+      return (-1);
+    }
   while (i--)
     {
       if (!strcasecmp(cmd, g_tab_cmd[i].shr_cmd))

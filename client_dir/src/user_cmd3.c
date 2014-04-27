@@ -5,14 +5,13 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 24 14:13:58 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:49:18 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 22:52:36 2014 Gabriel Poulet de Grimouard
 */
 
 #define _BSD_SOURCE
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 

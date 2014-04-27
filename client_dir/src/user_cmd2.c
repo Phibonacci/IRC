@@ -5,12 +5,14 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Mon Apr 21 19:58:40 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 21:17:58 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 23:27:17 2014 Gabriel Poulet de Grimouard
 */
 
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
 
 #include "client.h"
 #include "user.h"
@@ -84,7 +86,8 @@ t_state		user_quit_cmd(t_client *client, t_duser *user)
     }
   if (FD_ISSET(user->network.fd, &client->fd_write))
     write_to_serv(client, user);
-  close(user->network.fd);
+  if (close(user->network.fd) == -1)
+    merror("%s: %s", "close failed", strerror(errno));
   free(user);
   user = user_create();
   return (SUCCESS);

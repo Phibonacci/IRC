@@ -5,10 +5,10 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Tue Apr 15 15:57:34 2014 Jean Fauquenot
-## Last update Sun Apr 27 21:08:33 2014 Gabriel Poulet de Grimouard
+## Last update Sun Apr 27 22:29:03 2014 Gabriel Poulet de Grimouard
 ##
 
-DEBUG		=	1
+DEBUG		=	0
 
 NAME		=	client
 
