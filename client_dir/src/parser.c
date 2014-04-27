@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 17 18:48:21 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 12:08:35 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 21:33:21 2014 Gabriel Poulet de Grimouard
 */
 
 #define  _XOPEN_SOURCE 700
@@ -26,6 +26,7 @@ static	t_cmd	g_tab_cmd[] =
     {"/part", "PART", ""},
     {"/quit", "QUIT", ""},
     {"/user", "USER", ""},
+    {"/users", "WHO", ""},
     {"/msg", "PRIVMSG", ""},
     {"/me", "ACTION", ""},
     {"/setipport", "IPPORT", ""},
@@ -43,11 +44,6 @@ static char	*recup_cmd(char *str)
   return (strndup(str, i));
 }
 
-/*
-** le 2e strlen est pas necessaire un calcul mathematique serai plus optimise.
-** de plus c'est dans une boucle critique d'optimisation.
-** a faire des que le reste fonctionne bien.
-*/
 static int	replace_cmd_in_buf(t_client *client, const char *to_repl,
 				   char *repl_by)
 {
@@ -76,9 +72,11 @@ int		parse_cmd(t_client *client)
   while (i--)
     {
       if (!strcasecmp(cmd, g_tab_cmd[i].shr_cmd))
-	return (replace_cmd_in_buf(client, g_tab_cmd[i].shr_cmd, g_tab_cmd[i].trad));
+	return (replace_cmd_in_buf(client, g_tab_cmd[i].shr_cmd,
+				   g_tab_cmd[i].trad));
       if (!strcasecmp(cmd, g_tab_cmd[i].cmd))
-	return (replace_cmd_in_buf(client, g_tab_cmd[i].cmd, g_tab_cmd[i].trad));
+	return (replace_cmd_in_buf(client, g_tab_cmd[i].cmd,
+				   g_tab_cmd[i].trad));
     }
   if (client->msg[0] != '/')
     return (replace_cmd_in_buf(client, "", "PRIVMSG "));

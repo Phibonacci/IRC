@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Mon Apr 21 19:58:40 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 13:36:25 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 21:17:58 2014 Gabriel Poulet de Grimouard
 */
 
 #include <string.h>
@@ -17,7 +17,7 @@
 #include "usual.h"
 #include "error.h"
 
-static void insert_chan(t_client *client, char *chan_name)
+static void	insert_chan(t_client *client, char *chan_name)
 {
   unsigned int	i;
   unsigned int	chan_len;
@@ -62,7 +62,7 @@ t_state		user_privmsg_cmd(t_client *client, t_duser *user)
   return (SUCCESS);
 }
 
-t_state	user_msg_cmd(t_client *client, t_duser *user)
+t_state		user_msg_cmd(t_client *client, t_duser *user)
 {
   if (user->network.fd == -1)
     {
@@ -74,34 +74,7 @@ t_state	user_msg_cmd(t_client *client, t_duser *user)
   return (SUCCESS);
 }
 
-t_state	user_nick_cmd(t_client *client, t_duser *user)
-{
-  char	*nick;
-
-  if (user->network.fd == -1)
-    {
-      printf("You are not connected to a server !\n");
-      return (FAILURE_L1);
-    }
-  nick = client->msg + strlen(client->cmd);
-  while (*nick && *nick == ' ')
-    ++nick;
-  strncpy(user->nick, nick, 16);
-  return (SUCCESS);
-}
-
-t_state	user_user_cmd(t_client *client, t_duser *user)
-{
-  (void)client;
-  if (user->network.fd == -1)
-    {
-      printf("You are not connected to a server !\n");
-      return (FAILURE_L1);
-    }
-  return (SUCCESS);
-}
-
-t_state user_quit_cmd(t_client *client, t_duser *user)
+t_state		user_quit_cmd(t_client *client, t_duser *user)
 {
   (void)client;
   if (user->network.fd == -1)

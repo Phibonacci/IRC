@@ -5,10 +5,10 @@
 ## Login   <fauque_j@epitech.net>
 ## 
 ## Started on  Tue Apr 15 15:57:34 2014 Jean Fauquenot
-## Last update Sat Apr 26 13:52:35 2014 Gabriel Poulet de Grimouard
+## Last update Sun Apr 27 21:08:33 2014 Gabriel Poulet de Grimouard
 ##
 
-DEBUG		=	0
+DEBUG		=	1
 
 NAME		=	client
 
@@ -18,6 +18,7 @@ SRC		=	main.c 		\
 			parser.c 	\
 			user.c 		\
 			user_command.c 	\
+			user_command2.c \
 			error.c		\
 			user_cmd.c	\
 			user_cmd2.c	\
@@ -30,7 +31,7 @@ VPATH		=	src
 
 OBJ		=	$(patsubst %.c,$(BUILD)/%.o,$(SRC))
 
-CC		=	clang
+CC		=	gcc
 
 CFLAGS		=	-W -Wall -I src/includes/ -I ../includes --std=c90
 ifeq ($(DEBUG), 1)

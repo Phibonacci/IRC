@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:45:58 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 16:20:19 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 21:09:55 2014 Gabriel Poulet de Grimouard
 */
 
 #ifndef CLIENT_H_
@@ -36,8 +36,8 @@ typedef struct		s_fxchg
 
 typedef struct		s_client
 {
-  t_fxchg		fxchg;
   char			msg[512 + 1];
+  t_fxchg		fxchg;
   char			*cmd;
   in_addr_t		ip;
   int			len_msg;
@@ -83,5 +83,6 @@ t_state		user_msg_cmd(t_client *, struct s_duser *);
 t_state		user_quit_cmd(t_client *, struct s_duser *);
 int		user_connect_to_srv(t_network *net,
 				    int port, in_addr_t ip);
+t_state		read_cmd(t_client *client, struct s_duser *user);
 
 #endif /* !CLIENT_H_ */

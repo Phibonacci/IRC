@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:15:50 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 16:25:12 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 20:56:20 2014 Gabriel Poulet de Grimouard
 */
 
 #include <unistd.h>
@@ -37,10 +37,12 @@ void		client_init(t_client *client)
   client->towrite = FALSE;
   FD_ZERO(&client->fd_write);
   client->cmd = NULL;
+  client->msg[0] = 0;
   client->len_msg = 0;
   client->ip = 0;
   client->port = 4242;
-  client->fxchg.fd = -1;
-  client->fxchg.ip = 0;
+  client->fxchg.fd = 0;
+  client->fxchg.ip = -1;
   client->fxchg.port = 0;
+  client->fxchg.readd = FALSE;
 }

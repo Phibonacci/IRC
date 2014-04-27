@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Sat Apr 19 16:41:29 2014 Gabriel Poulet de Grimouard
-** Last update Sun Apr 27 16:20:12 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 21:35:49 2014 Gabriel Poulet de Grimouard
 */
 
 #define _XOPEN_SOURCE 700
@@ -27,8 +27,8 @@
 #include "usual.h"
 #include "error.h"
 
-int		user_connect_to_srv(t_network *net,
-				    int port, in_addr_t ip)
+int			user_connect_to_srv(t_network *net,
+					    int port, in_addr_t ip)
 {
   struct protoent	*pe;
   struct sockaddr_in	*addr;
@@ -57,7 +57,7 @@ void		get_ip_port(char *msg, int *port, char **ip)
   while (msg[i] == ' ')
     ++i;
   a = i;
-  while (msg[a] && msg[a] != ':' && msg[a] != '\n' && msg[a] != '\r')
+  while (msg[a] && msg[a] != ':' && msg[a] != ' ' && msg[a] != '\r')
     ++a;
   *ip = strndup(&msg[i], a - i);
   if (msg[a] == ':')
@@ -75,7 +75,7 @@ t_state			user_serv_cmd(t_client *client, t_duser *user)
   if ((pHostInfo = gethostbyname(ip)) == NULL)
     return (FAILURE_L1);
   addr_list = (struct in_addr **)pHostInfo->h_addr_list;
-  if (!user_connect_to_srv(&user->network, user->network.port,
+  if (user_connect_to_srv(&user->network, user->network.port,
 			   (addr_list[0])->s_addr))
     return (FAILURE_L1);
   printf("SERVER connected !\n");
