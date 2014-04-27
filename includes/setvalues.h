@@ -4,13 +4,14 @@
 ** Made by Jean Fauquenot
 ** Login   <fauque_j@epitech.net>
 **
-** Started on  Thu Apr 17 13:53:53 2014 Jean Fauquenot
-** Last update Sun Apr 27 15:47:55 2014 Jean Fauquenot
+** Started on  Sun Apr 27 23:20:35 2014 Jean Fauquenot
+** Last update Sun Apr 27 23:20:36 2014 Jean Fauquenot
 */
 
 #ifndef SETVALUES_H_
 # define SETVALUES_H_
 
+# define NB_MSG			10
 /*
 ** RFC1459 2.3
 */

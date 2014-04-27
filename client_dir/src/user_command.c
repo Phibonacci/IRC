@@ -5,59 +5,107 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Fri Apr 18 14:41:59 2014 Gabriel Poulet de Grimouard
-** Last update Mon Apr 21 18:39:45 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 22:03:04 2014 Gabriel Poulet de Grimouard
 */
 
-#include <unistd.h>
+#include <strings.h>
 #include <string.h>
-#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
 
 #include "client.h"
 #include "user.h"
 #include "usual.h"
+#include "error.h"
 
-static const t_fnct	g_tab_fnct[] =
-  {
-    {"JOIN", &user_join_cmd},
-    {"SERVER", &user_serv_cmd},
-    {"NICK", &user_nick_cmd},
-    /* {"LIST", &user_list_cmd}, */
-    /* {"PART", &user_part_cmd}, */
-    /* {"QUIT", &user_quit_cmd}, */
-    /* {"USER", &user_user_cmd}, */
-    /* {"PRIVMSG", &user_privmsg_cmd}, */
-    /* {"send_file", &user_send_cmd}, */
-    /* {"accept_file", &user_accept_cmd} */
-  };
-
-static int	user_exec_cmd(t_client *client, t_muser *user)
+t_state		write_to_serv(t_client *client, t_duser *user)
 {
-  unsigned int	i;
-
-  i = LEN(g_tab_fnct);
-  while (i--)
-    {
-      printf("cmd = %s fnct[i].cmd = %s\n", client->cmd, g_tab_fnct[i].cmd);
-      if (!strcmp(g_tab_fnct[i].cmd, client->cmd))
-	return (g_tab_fnct[i].fnct(client, user));
-    }
-  return (0);
+  if (client->msg[0] == '\0')
+    return (SUCCESS);
+  if ((write(user->network.fd, client->msg, client->len_msg)) <= 0)
+    return (FAILURE_L1);
+  client->msg[0] = '\0';
+  return (SUCCESS);
 }
 
-void		user_cmd(t_muser *user)
+static t_state	read_sock(t_client *client, int fd)
+{
+  client->len_msg = 510;
+  while (client->len_msg == 510)
+    {
+      if ((client->len_msg = read(fd, client->msg, 510)) <= 0)
+	return (FAILURE);
+      client->msg[client->len_msg] = '\0';
+      if (strncasecmp(client->msg, "ping", 4) == 0)
+	{
+	  if (write(fd, "pong", 4) <= 0)
+	    return (FAILURE);
+	}
+      else
+	(void)write(1, client->msg, client->len_msg);
+    }
+  client->msg[0] = '\0';
+  client->len_msg = 0;
+  return (SUCCESS);
+}
+
+static void	init_select(t_client *cli, int *fd, fd_set *fd_read,
+			    t_duser *user)
+{
+  cli->fxchg.is_inuse = 0;
+  if (user->network.fd == -1)
+    *fd = 2;
+  FD_ZERO(fd_read);
+  cli->towrite = FALSE;
+  FD_SET(0, fd_read);
+  if (user->network.fd != -1)
+    {
+      FD_ZERO(&cli->fd_write);
+      *fd = user->network.fd;
+      FD_SET(*fd, fd_read);
+      FD_SET(*fd, &cli->fd_write);
+      cli->towrite = TRUE;
+      if (cli->fxchg.fd != 0)
+	{
+	  *fd = cli->fxchg.fd;
+	  cli->fxchg.is_inuse = 1;
+	  if (cli->fxchg.readd == TRUE)
+	    FD_SET(cli->fxchg.fd, fd_read);
+	  else
+	    FD_SET(cli->fxchg.fd, &cli->fd_write);
+	}
+    }
+}
+
+static void	select_check(t_client *cli, t_duser *user, fd_set *fd_read)
+{
+  if (user->network.fd && FD_ISSET(user->network.fd, &cli->fd_write))
+    write_to_serv(cli, user);
+  if (user->network.fd && (FD_ISSET(user->network.fd, fd_read)))
+    if (read_sock(cli, user->network.fd) != SUCCESS)
+      {
+	merror("%s: %s", "server socket is down", strerror(errno));
+	free(user);
+	user = user_create();
+      }
+  if (FD_ISSET(0, fd_read))
+    if (read_cmd(cli, user) == FAILURE)
+      cli->quit = TRUE;
+}
+
+void		user_cmd(t_duser *user)
 {
   t_client	client;
+  int		fd;
+  fd_set	fd_read;
 
   client_init(&client);
-  (void)user;
   while (client.quit == FALSE)
     {
-      if ((client.len_msg = read(0, client.msg, 510)) <= 0)
-	return ;
-      client.msg[client.len_msg] = '\r';
-      client.msg[client.len_msg + 1] = '\0';
-      if (parse_cmd(&client) == -1)
-	continue ;
-      user_exec_cmd(&client, user);
+      init_select(&client, &fd, &fd_read, user);
+      if (select(fd + 1, &fd_read, (client.towrite == FALSE ? NULL :
+				    &client.fd_write), NULL, NULL) == -1)
+	return ((void)merror("%s: %s", "select failed", strerror(errno)));
+      select_check(&client, user, &fd_read);
     }
 }

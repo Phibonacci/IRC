@@ -5,7 +5,7 @@
 ** Login   <poulet_g@epitech.net>
 **
 ** Started on  Thu Apr 17 18:48:21 2014 Gabriel Poulet de Grimouard
-** Last update Mon Apr 21 16:27:44 2014 Gabriel Poulet de Grimouard
+** Last update Sun Apr 27 21:33:21 2014 Gabriel Poulet de Grimouard
 */
 
 #define  _XOPEN_SOURCE 700
@@ -26,9 +26,12 @@ static	t_cmd	g_tab_cmd[] =
     {"/part", "PART", ""},
     {"/quit", "QUIT", ""},
     {"/user", "USER", ""},
+    {"/users", "WHO", ""},
     {"/msg", "PRIVMSG", ""},
-    {"/send_file", "send_file", ""},
-    {"/accept_file", "accept_file", ""},
+    {"/me", "ACTION", ""},
+    {"/setipport", "IPPORT", ""},
+    {"/send_file", "SEND", ""},
+    {"/accept_file", "ACCEPT", ""}
   };
 
 static char	*recup_cmd(char *str)
@@ -36,16 +39,11 @@ static char	*recup_cmd(char *str)
   unsigned int	i;
 
   i = 0;
-  while (str[i] && str[i] != ' ' && str[i] != '\t')
+  while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\r')
     i++;
   return (strndup(str, i));
 }
 
-/*
-** le 2e strlen est pas necessaire un calcul mathematique serai plus optimise.
-** de plus c'est dans une boucle critique d'optimisation.
-** a faire des que le reste fonctionne bien.
-*/
 static int	replace_cmd_in_buf(t_client *client, const char *to_repl,
 				   char *repl_by)
 {
@@ -55,7 +53,10 @@ static int	replace_cmd_in_buf(t_client *client, const char *to_repl,
   memmove(&client->msg[0] + i - strlen(to_repl), &client->msg[0], 510 - i);
   strncpy(&client->msg[0], repl_by, i);
   printf("%s\n", client->msg);
-  client->cmd = repl_by;
+  if (strcmp(repl_by, "PRIVMSG "))
+    client->cmd = repl_by;
+  else
+    client->cmd = "PRIVMSG ";
   client->len_msg = strlen(client->msg);
   return (0);
 }
@@ -71,9 +72,11 @@ int		parse_cmd(t_client *client)
   while (i--)
     {
       if (!strcasecmp(cmd, g_tab_cmd[i].shr_cmd))
-	return (replace_cmd_in_buf(client, g_tab_cmd[i].shr_cmd, g_tab_cmd[i].trad));
+	return (replace_cmd_in_buf(client, g_tab_cmd[i].shr_cmd,
+				   g_tab_cmd[i].trad));
       if (!strcasecmp(cmd, g_tab_cmd[i].cmd))
-	return (replace_cmd_in_buf(client, g_tab_cmd[i].cmd, g_tab_cmd[i].trad));
+	return (replace_cmd_in_buf(client, g_tab_cmd[i].cmd,
+				   g_tab_cmd[i].trad));
     }
   if (client->msg[0] != '/')
     return (replace_cmd_in_buf(client, "", "PRIVMSG "));

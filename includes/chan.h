@@ -4,8 +4,8 @@
 ** Made by Jean Fauquenot
 ** Login   <fauque_j@epitech.net>
 **
-** Started on  Wed Apr 16 17:04:57 2014 Jean Fauquenot
-** Last update Sun Apr 27 15:52:29 2014 Jean Fauquenot
+** Started on  Sun Apr 27 23:22:15 2014 Jean Fauquenot
+** Last update Sun Apr 27 23:22:16 2014 Jean Fauquenot
 */
 
 #ifndef CHAN_H_
@@ -69,8 +69,8 @@ typedef enum		e_flags_chan_user
 typedef struct		s_chan_user
 {
   struct s_duser	*info;
-  t_flags_chan_user	mode;
   struct s_chan_user	*next;
+  t_flags_chan_user	mode;
 }			t_chan_user;
 
 /*
@@ -88,6 +88,7 @@ typedef struct		s_chan
   char			topic[CHAN_TOPIC_LEN];
   uint32_t		l;
   char			key[CHAN_KEY_LEN];
+  char			buffer[NB_MSG * CMD_LEN];
   t_chan_user		*users;
 }			t_chan;
 
