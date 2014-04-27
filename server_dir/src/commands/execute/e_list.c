@@ -5,7 +5,7 @@
 ** Login   <fauque_j@epitech.net>
 **
 ** Started on  Sun Apr 27 19:36:23 2014 Jean Fauquenot
-** Last update Sun Apr 27 21:30:51 2014 Jean Fauquenot
+** Last update Sun Apr 27 23:37:54 2014 Jean Fauquenot
 */
 
 #include	"execute.h"
@@ -29,6 +29,8 @@ t_state		e_list(t_irc *irc, t_duser *user, t_cmd *cmd)
 {
   t_chan_l	*list;
 
+  if (!irc->chans)
+    return (SUCCESS);
   list = irc->chans;
   if (user->identify == FALSE)
     return (SUCCESS);
